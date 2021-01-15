@@ -27,19 +27,19 @@ RSpec.describe TweetsController, type: :controller do
   describe 'GET /tweets' do
     it 'renders all tweets object' do
       user = FactoryBot.create(:user)
-      FactoryBot.create(:tweet, user: user)
-      FactoryBot.create(:tweet, user: user)
+      tweet_1 = FactoryBot.create(:tweet, user: user)
+      tweet_2 = FactoryBot.create(:tweet, user: user)
 
       get :index
 
       expect(response.body).to eq({
         tweets: [
           {
-            id: Tweet.order(created_at: :desc)[0].id,
+            id: tweet_1.id,
             username: user.username,
             message: 'Test Message'
           }, {
-            id: Tweet.order(created_at: :desc)[1].id,
+            id: tweet_2.id,
             username: user.username,
             message: 'Test Message'
           }
